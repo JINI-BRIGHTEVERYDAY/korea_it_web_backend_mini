@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.BoardStudy.mapper.UserRoleMapper">
+    <resultMap id="RoleResultMap" type="com.korit.BoardStudy.entity.Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name" />
+        <result property="roleNameKor" column="role_name_kor"/>
+    </resultMap>
+
+    <resultMap id="UserRoleResultMap" type="com.korit.BoardStudy.entity.UserRole">
+        <id property="userRoleId" column="user_role_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="urt_role_id"/>
+        <result property="createDt" column="create_dt"/>
+        <result property="updateDt" column="update_dt"/>
+        <association property="role" resultMap="RoleResultMap"/>
+    </resultMap>
+
+    <insert id="addUserRole" useGeneratedKeys="true" keyProperty="userRoleId">
+        insert into
+        user_role_tb
+        values
+        (0, #{userId}, #{roleId}, now(), null)
+    </insert>
+
+
+
+
+</mapper>
