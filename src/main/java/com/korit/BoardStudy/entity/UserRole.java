@@ -20,3 +20,4 @@ public class UserRole {
 
     private Role role;
 }
+

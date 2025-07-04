@@ -20,6 +20,7 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -49,9 +50,11 @@ public class SecurityConfig {
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/**").permitAll();
+            auth.requestMatchers("/auth/**", "/oauth2/**", "/login/oauth2/**").permitAll();
             auth.anyRequest().authenticated();
         });
+
+        http.oauth2Login(oauth2 -> oauth2.userInfoEndpoint((userInfo -> userInfo.userService(oauth2))));
 
         return http.build();
     }
