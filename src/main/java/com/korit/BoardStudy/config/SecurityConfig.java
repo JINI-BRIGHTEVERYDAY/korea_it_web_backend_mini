@@ -1,6 +1,8 @@
 package com.korit.BoardStudy.config;
 
 import com.korit.BoardStudy.security.filter.JwtAuthenticationFilter;
+import com.korit.BoardStudy.security.handler.OAuth2SuccessHandler;
+import com.korit.BoardStudy.service.OAuth2PrincipalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,12 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private OAuth2PrincipalUserService oAuth2PrincipalUserService;
+
+    @Autowired
+    private OAuth2SuccessHandler oAuth2SuccessHandler;
 
 
     @Bean
@@ -50,7 +58,7 @@ public class SecurityConfig {
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/**", "/oauth2/**", "/login/oauth2/**").permitAll();
+            auth.requestMatchers("/auth/**", "/oauth2/**", "/login/oauth2/**", "/mail/verify").permitAll();
             auth.anyRequest().authenticated();
         });
 

@@ -11,4 +11,5 @@ public interface UserMapper {
     Optional<User> getUserByUserId(Integer userId);
     Optional<User> getUserByUsername(Integer username);
     Optional<User> getUserByEmail(Integer email);
+    int updatePassword(User user);
 }

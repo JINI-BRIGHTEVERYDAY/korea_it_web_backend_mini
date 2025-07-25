@@ -112,6 +112,16 @@
         ut.email = #{email}
     </select>
 
+    <update id="upadatePassword">
+        update
+            user_tb
+        set
+            passwrod = #{password},
+            update_dt = now()
+
+        where
+            user_id = #{userId}
+    </update>
 
 
 
